@@ -10,11 +10,9 @@ class ProductPostgresqlCommandRepository(
     private val repository: ProductPostgresqlRepository,
     private val productMapper: ProductMapper
 ): ProductCommandOutboundPort {
-    override fun save(productDomainEntity: ProductDomainEntity): ProductDomainEntity {
+    override fun save(productDomainEntity: ProductDomainEntity) {
         val productOrmEntity = productMapper.toOrmEntity(productDomainEntity)
 
-        val saved = repository.save(productOrmEntity)
-
-        return productMapper.toDomainEntity(saved)
+        repository.save(productOrmEntity)
     }
 }

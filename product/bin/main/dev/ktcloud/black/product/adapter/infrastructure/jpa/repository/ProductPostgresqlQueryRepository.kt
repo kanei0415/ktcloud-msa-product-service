@@ -5,7 +5,6 @@ import dev.ktcloud.black.product.application.port.outbound.ProductQueryOutboundP
 import dev.ktcloud.black.product.domain.entity.ProductDomainEntity
 import dev.ktcloud.black.product.domain.exception.ProductException
 import org.springframework.stereotype.Component
-import java.util.UUID
 
 
 @Component
@@ -14,7 +13,7 @@ class ProductPostgresqlQueryRepository(
     private val productMapper: ProductMapper
 ): ProductQueryOutboundPort {
     override fun fetch(id: String): ProductDomainEntity {
-        val optional = repository.findById(UUID.fromString(id))
+        val optional = repository.findById(id)
 
         if (!optional.isPresent) throw ProductException.NoSuchProductException()
 

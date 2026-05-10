@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21.0.9_10-jdk-jammy AS build
+FROM --platform=arm64 eclipse-temurin:21.0.9_10-jdk-jammy AS build
 WORKDIR /app
 
 COPY gradlew .
@@ -15,7 +15,7 @@ COPY . .
 
 RUN ./gradlew :product-service:bootJar -x test --no-daemon
 
-FROM eclipse-temurin:21.0.9_10-jre-jammy
+FROM --platform=arm64 eclipse-temurin:21.0.9_10-jre-jammy
 WORKDIR /app
 
 RUN useradd -ms /bin/bash springuser

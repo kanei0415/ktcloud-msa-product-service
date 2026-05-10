@@ -11,15 +11,13 @@ class ProductCommandService(
     private val productCommandOutboundPort: ProductCommandOutboundPort,
 ): CreateProductCommand {
     @Transactional
-    override fun createProduct(command: CreateProductCommand.In): CreateProductCommand.Out {
+    override fun createProduct(command: CreateProductCommand.In) {
         val productDomainEntity = ProductDomainEntity(
             name = command.name,
             description = command.description,
             price = command.price,
         )
 
-        val saved = productCommandOutboundPort.save(productDomainEntity)
-
-        return CreateProductCommand.Out.from(saved)
+        productCommandOutboundPort.save(productDomainEntity)
     }
 }
